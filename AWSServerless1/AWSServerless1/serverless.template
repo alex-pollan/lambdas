@@ -9,10 +9,12 @@
         "true",
         "false"
       ],
+      "Default": "true",
       "Description": "If true then the S3 bucket that will be proxied will be created with the CloudFormation stack."
     },
     "BucketName": {
       "Type": "String",
+      "Default": "",
       "Description": "Name of S3 bucket that will be proxied. If left blank a name will be generated.",
       "MinLength": "0"
     }
