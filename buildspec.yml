@@ -9,7 +9,7 @@ phases:
       - cd AWSServerless1
       - dotnet build
       - cd ..
-      - export BUCKET=lambda-deployment-artifacts-123456789012
+      - export BUCKET=lambda-deployment-artifacts-865075051780
       - aws cloudformation package --template-file AWSServerless1/AWSServerless1/serverless.template --s3-bucket $BUCKET --output-template-file outputtemplate.yml
 artifacts:
   type: zip
