@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AWSServerless1", "AWSServer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AWSServerless1.Tests", "AWSServerless1.Tests\AWSServerless1.Tests.csproj", "{D7879B0E-EA93-4464-A525-0F68B9EB5D54}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{213712B0-FB86-494C-902B-BD774B4FB325}"
+	ProjectSection(SolutionItems) = preProject
+		..\buildspec.yml = ..\buildspec.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
