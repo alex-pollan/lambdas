@@ -11,5 +11,5 @@
   "framework": "netcoreapp3.1",
   "s3-prefix": "AWSServerless1/",
   "template": "serverless.template",
-  "template-parameters": "\"ShouldCreateBucket\"=\"true\";\"BucketName\"=\"\""
+  "template-parameters": "\"ShouldCreateBucket\"=\"false\";\"BucketName\"=\"awsserverless1-bucket-nym9gebotzs5\""
 }
