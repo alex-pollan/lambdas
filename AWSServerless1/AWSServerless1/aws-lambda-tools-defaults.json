@@ -11,12 +11,5 @@
   "framework": "netcoreapp3.1",
   "s3-prefix": "AWSServerless1/",
   "template": "serverless.template",
-  "template-parameters": "\"ShouldCreateBucket\"=\"true\";\"BucketName\"=\"\"",
-  "s3-bucket": "tapmiapp-serverless-test",
-  "stack-name": "AWSServerless1",
-  "function-runtime": "dotnetcore3.1",
-  "function-memory-size": 256,
-  "function-timeout": 30,
-  "function-handler": "AWSServerless1::AWSServerless1.LambdaEntryPoint::FunctionHandlerAsync",
-  "function-role": "arn:aws:iam::865075051780:role/AWSServerless1-AspNetCoreFunctionRole-URRMVXQXO7XV"
+  "template-parameters": "\"ShouldCreateBucket\"=\"true\";\"BucketName\"=\"\""
 }
