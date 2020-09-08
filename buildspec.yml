@@ -11,10 +11,11 @@ phases:
       - dotnet clean -v q
       - echo "Publishing..."
       - dotnet publish -c Release -v q
+      - cd AWSServerless1
       - mkdir dist
       - rm -rf dist/*
-      - zip -j dist/deploy.zip AWSServerless1/bin/Release/netcoreapp3.1/publish/*
-      - cd ..
+      - zip -j dist/deploy.zip bin/Release/netcoreapp3.1/publish/*
+      - cd ../../
       - export BUCKET=lambda-deployment-artifacts-865075051780
       - aws cloudformation package --template-file AWSServerless1/AWSServerless1/serverless.template --s3-bucket $BUCKET --output-template-file outputtemplate.yml
 artifacts:
