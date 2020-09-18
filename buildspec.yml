@@ -19,9 +19,7 @@ phases:
       - cd ../
 
       - cd BackgroundLambdas
-      - mkdir dist
-      - rm -rf dist/*
-      - zip -j dist/deploy-backlambdas.zip bin/Release/netcoreapp3.1/publish/*
+      - zip -j ../AWSServerless1/dist/deploy-backlambdas.zip bin/Release/netcoreapp3.1/publish/*
       - cd ../
 
       - cd ../
