@@ -9,7 +9,7 @@ namespace AWSServerless1.Models
         public string ConsumerId { get; set; }
 
         [DynamoDBRangeKey] //Range key
-        public long CreationDateTime { get; set; }
+        public long CreationTimestamp { get; set; }
 
         [DynamoDBProperty]
         public string Name { get; set; }

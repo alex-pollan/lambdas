@@ -13,13 +13,18 @@ namespace DbTools
 {
     class Program
     {
-        private static AmazonDynamoDBClient client = new AmazonDynamoDBClient(
+        private const string TableName = "Works";
+        private const string KeyCreationTimestamp = "CreationTimestamp";
+        private const string KeyConsumerId = "ConsumerId";
+        private const string PathData = "data/works.json";
+
+        private static readonly AmazonDynamoDBClient _client = new AmazonDynamoDBClient(
             new AmazonDynamoDBConfig
             {
                 //ServiceURL = "http://localhost:8000"
                 ServiceURL = "https://dynamodb.eu-west-1.amazonaws.com"
             });
-        private static string tableName = "Works";
+
 
         static async Task Main(string[] args)
         {
@@ -46,12 +51,12 @@ namespace DbTools
                 {
                     new AttributeDefinition
                     {
-                        AttributeName = "ConsumerId",
+                        AttributeName = KeyConsumerId,
                         AttributeType = "S"
                     },
                     new AttributeDefinition
                     {
-                        AttributeName = "CreationDateTime",
+                        AttributeName = KeyCreationTimestamp,
                         AttributeType = "N"
                     }
                 },
@@ -59,12 +64,12 @@ namespace DbTools
                 {
                     new KeySchemaElement
                     {
-                        AttributeName = "ConsumerId",
+                        AttributeName = KeyConsumerId,
                         KeyType = "HASH" //Partition key
                     },
                     new KeySchemaElement
                     {
-                        AttributeName = "CreationDateTime",
+                        AttributeName = KeyCreationTimestamp,
                         KeyType = "RANGE" //Sort key
                     }
                 },
@@ -73,10 +78,10 @@ namespace DbTools
                     ReadCapacityUnits = 5,
                     WriteCapacityUnits = 6
                 },
-                TableName = tableName
+                TableName = TableName
             };
 
-            var response = await client.CreateTableAsync(request);
+            var response = await _client.CreateTableAsync(request);
 
             var tableDescription = response.TableDescription;
             Console.WriteLine("{1}: {0} \t ReadsPerSec: {2} \t WritesPerSec: {3}",
@@ -86,22 +91,22 @@ namespace DbTools
                       tableDescription.ProvisionedThroughput.WriteCapacityUnits);
 
             string status = tableDescription.TableStatus;
-            Console.WriteLine(tableName + " - " + status);
+            Console.WriteLine(TableName + " - " + status);
 
-            await WaitUntilTableReadyAsync(tableName);
+            await WaitUntilTableReadyAsync(TableName);
         }
 
         private static async Task LoadDataAsync()
         {
-            var table = Table.LoadTable(client, tableName);
+            var table = Table.LoadTable(_client, TableName);
 
-            JArray items = await ReadJsonFileAsync("data/works.json");
+            JArray items = await ReadJsonFileAsync(PathData);
 
             foreach (var item in items)
             {
                 string itemJson = item.ToString();
                 Document doc = Document.FromJson(itemJson);
-                doc["CreationDateTime"] = DateTime.UtcNow.Ticks;
+                doc[KeyCreationTimestamp] = DateTime.UtcNow.Ticks;
                 await table.PutItemAsync(doc);
             }
         }
@@ -117,7 +122,7 @@ namespace DbTools
         {
             Console.WriteLine("\n*** Deleting table ***");
 
-            if (await TryToGetTableStatusAsync(tableName) == null)
+            if (await TryToGetTableStatusAsync(TableName) == null)
             {
                 Console.WriteLine("Table does not exist...");
                 return;
@@ -125,10 +130,10 @@ namespace DbTools
 
             var request = new DeleteTableRequest
             {
-                TableName = tableName
+                TableName = TableName
             };
 
-            var response = await client.DeleteTableAsync(request);
+            var response = await _client.DeleteTableAsync(request);
 
             Console.WriteLine("Table is being deleted...");
         }
@@ -148,7 +153,7 @@ namespace DbTools
         {
             try
             {
-                var res = await client.DescribeTableAsync(new DescribeTableRequest
+                var res = await _client.DescribeTableAsync(new DescribeTableRequest
                 {
                     TableName = tableName
                 });
