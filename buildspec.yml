@@ -21,7 +21,7 @@ phases:
       - cd BackgroundLambdas
       - mkdir dist
       - rm -rf dist/*
-      - zip -j dist/deploy.zip bin/Release/netcoreapp3.1/publish/*
+      - zip -j dist/deploy-backlambdas.zip bin/Release/netcoreapp3.1/publish/*
       - cd ../
 
       - cd ../

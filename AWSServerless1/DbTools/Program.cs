@@ -30,8 +30,8 @@ namespace DbTools
         {
             try
             {
-                await TryToDeleteTableAsync();
-                await CreateTableAsync();
+                //await TryToDeleteTableAsync();
+                //await CreateTableAsync();
                 await LoadDataAsync();
 
                 Console.WriteLine("To continue, press Enter");
