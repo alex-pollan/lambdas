@@ -1,5 +1,4 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.DocumentModel;
 using AWSServerless1.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -19,7 +18,7 @@ namespace AWSServerless1.Controllers
 
         [HttpGet]
         public async Task<ActionResult<List<Work>>> Get()
-        {           
+        {
             var response = _dynamoDbContext.QueryAsync<Work>("1");
             //var response = _dynamoDbContext.ScanAsync<Work>(
             //    new[] { new ScanCondition("ConsumerId", ScanOperator.Equal, "1") });

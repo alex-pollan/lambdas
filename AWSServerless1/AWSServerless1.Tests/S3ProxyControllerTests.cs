@@ -1,23 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-
-using Xunit;
-using Amazon.Lambda.Core;
-using Amazon.Lambda.TestUtilities;
 using Amazon.Lambda.APIGatewayEvents;
-
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-
-using Amazon;
+using Amazon.Lambda.TestUtilities;
 using Amazon.S3;
 using Amazon.S3.Util;
-using Amazon.S3.Model;
-
-using AWSServerless1;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using Xunit;
 
 
 namespace AWSServerless1.Tests
@@ -68,7 +58,7 @@ namespace AWSServerless1.Tests
 
             Assert.Equal(200, response.StatusCode);
             Assert.Equal("text/json", response.MultiValueHeaders["Content-Type"][0]);
-			Assert.Contains("foo.txt", response.Body);
+            Assert.Contains("foo.txt", response.Body);
 
             // Return the content of the new s3 object foo.txt
             requestStr = File.ReadAllText("./SampleRequests/S3ProxyController-GetByKey.json");

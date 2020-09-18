@@ -1,17 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-
-using Xunit;
-using Amazon.Lambda.Core;
-using Amazon.Lambda.TestUtilities;
 using Amazon.Lambda.APIGatewayEvents;
-
+using Amazon.Lambda.TestUtilities;
 using Newtonsoft.Json;
-
-using AWSServerless1;
+using System.IO;
+using System.Threading.Tasks;
+using Xunit;
 
 
 namespace AWSServerless1.Tests

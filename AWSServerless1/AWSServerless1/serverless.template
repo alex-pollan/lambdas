@@ -99,6 +99,63 @@
           ]
         }
       }
+    },
+    "ProcessWorksDynamoDBStream": {
+        "Type": "AWS::Serverless::Function",
+        "Properties": {
+            "Handler": "BackgroundLambdas::BackgroundLambdas.CountWorks::FunctionHandlerAsync",
+            "Runtime": "dotnetcore3.1",
+            "CodeUri": "dist/deploy.zip",
+            "Policies": "AWSLambdaDynamoDBExecutionRole",
+            "Events": {
+                "Stream": {
+                    "Type": "DynamoDB",
+                    "Properties": {
+                        "Stream": {
+                            "Fn::GetAtt": [
+                                "DynamoDbTableWorks",
+                                "StreamArn"
+                            ]
+                        },
+                        "BatchSize": 100,
+                        "StartingPosition": "TRIM_HORIZON"
+                    }
+                }
+            }
+        }
+    },
+    "DynamoDbTableWorks": {
+        "Type": "AWS::DynamoDB::Table",
+        "Properties": {
+            "TableName": "Works",
+            "AttributeDefinitions": [
+                {
+                    "AttributeName": "ConsumerId",
+                    "AttributeType": "S"
+                },
+                {
+                    "AttributeName": "CreationTimestamp",
+                    "AttributeType": "N"
+                }
+            ],
+            "KeySchema": [
+                {
+                    "AttributeName": "ConsumerId",
+                    "KeyType": "HASH"
+                },
+                {
+                    "AttributeName": "CreationTimestamp",
+                    "KeyType": "RANGE"
+                }
+            ],
+            "ProvisionedThroughput": {
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+            },
+            "StreamSpecification": {
+                "StreamViewType": "NEW_IMAGE"
+            }
+        }
     }
   },
   "Outputs": {

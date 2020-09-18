@@ -17,7 +17,7 @@ namespace DbTools
             new AmazonDynamoDBConfig
             {
                 //ServiceURL = "http://localhost:8000"
-                ServiceURL = "https://dynamodb.eu-west-1.amazonaws.com"                
+                ServiceURL = "https://dynamodb.eu-west-1.amazonaws.com"
             });
         private static string tableName = "Works";
 
@@ -103,7 +103,7 @@ namespace DbTools
                 Document doc = Document.FromJson(itemJson);
                 doc["CreationDateTime"] = DateTime.UtcNow.Ticks;
                 await table.PutItemAsync(doc);
-            }            
+            }
         }
 
         public static async Task<JArray> ReadJsonFileAsync(string path)
@@ -122,7 +122,7 @@ namespace DbTools
                 Console.WriteLine("Table does not exist...");
                 return;
             }
-            
+
             var request = new DeleteTableRequest
             {
                 TableName = tableName
@@ -145,7 +145,7 @@ namespace DbTools
         }
 
         private static async Task<string> TryToGetTableStatusAsync(string tableName)
-        {           
+        {
             try
             {
                 var res = await client.DescribeTableAsync(new DescribeTableRequest
